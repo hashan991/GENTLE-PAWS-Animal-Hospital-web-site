@@ -1,0 +1,92 @@
+/* General Section Styling */
+.reviews {
+  padding: 50px 20px;
+  background-color: #fdf5f0;
+  text-align: center;
+}
+
+.reviews h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 40px;
+  line-height: 1.4;
+}
+
+.reviews-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.review-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.review-card.active {
+  border-color: #f39c12;
+  box-shadow: 0 8px 16px rgba(243, 156, 18, 0.3);
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.review-icon {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.review-card p {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.review-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.stars {
+  color: #f39c12;
+}
+
+.reviewer {
+  color: #333;
+  font-weight: bold;
+}
+
+/* Navigation Buttons */
+.review-navigation {
+  margin-top: 20px;
+}
+
+.review-navigation button {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: #f39c12;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.review-navigation button:hover {
+  background-color: #f39c12;
+  color: #fff;
+  transform: scale(1.1);
+}

@@ -1,0 +1,92 @@
+/* General Footer Styling */
+.footer {
+  background-color: #111; /* Dark background */
+  color: #fff; /* White text */
+  padding: 50px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between; /* Evenly space items */
+  gap: 30px;
+  flex-wrap: nowrap; /* Ensure items stay in one row */
+  text-align: left; /* Align all sections to the left */
+}
+
+/* Common Styling for All Sections */
+.footer-container > div {
+  flex: 1; /* Make all sections equal width */
+}
+
+.footer-container h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #ffa500; /* Orange color */
+}
+
+.footer-container p,
+.footer-container ul,
+.footer-container li {
+  font-size: 0.9rem;
+  color: #bbb; /* Light gray text */
+  line-height: 1.6;
+}
+
+.footer-container a {
+  text-decoration: none;
+  color: #bbb;
+  transition: color 0.3s ease;
+}
+
+.footer-container a:hover {
+  color: #ffa500; /* Orange on hover */
+}
+
+/* Social Icons Styling */
+.footer-socials {
+  margin-top: 15px;
+}
+
+.footer-socials a {
+  display: inline-block;
+  margin-right: 10px;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  border: 2px solid #ffa500;
+  color: #ffa500;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.footer-socials a:hover {
+  background-color: #ffa500;
+  color: #111;
+}
+
+/* Links Section */
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+/* Footer Bottom Section */
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+.footer-bottom p {
+  font-size: 0.9rem;
+  color: #bbb;
+}

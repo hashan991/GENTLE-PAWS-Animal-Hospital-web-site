@@ -1,0 +1,78 @@
+/* General Section Styling */
+.benefits {
+  padding: 50px 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.benefits h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* Benefits Container */
+.benefits-container {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* Benefit Card Styling */
+.benefit-card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: left;
+  width: 400px;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+.benefit-card img {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 1;
+  background-color: #fff;
+}
+
+.benefit-card .benefit-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f39c12; /* Orange */
+  margin-bottom: 10px;
+}
+
+.benefit-card h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.benefit-card p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.benefit-card .details-link {
+  font-size: 0.9rem;
+  color: #3498db; /* Blue */
+  font-weight: bold;
+  text-decoration: none;
+  position: relative;
+  z-index: 2;
+}
+
+.benefit-card .details-link:hover {
+  text-decoration: underline;
+}
