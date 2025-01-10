@@ -1,6 +1,6 @@
 <?php session_start(); ?>
-<?php require_once('inc/connection.php'); ?>
-<?php require_once('inc/functions.php'); ?>
+<?php require_once('../../inc/connection.php'); ?>
+<?php require_once('../../inc/functions.php'); ?>
 <?php 
 	// checking if a user is logged in
 	if (!isset($_SESSION['user_id'])) {
@@ -104,13 +104,42 @@
 <head>
 	<meta charset="UTF-8">
 	<title>View / Modify User</title>
-	<link rel="stylesheet" href="css/main.css">
+	
+	<link rel="stylesheet" href="../../css/uedit.css">
 </head>
 <body>
-	<header>
-		<div class="appname">User Management System</div>
-		<div class="loggedin">Welcome <?php echo $_SESSION['first_name']; ?>! <a href="logout.php">Log Out</a></div>
-	</header>
+		<div class="top-bar">
+      <div class="container">
+        <p>
+          <span>&#128205;</span> No 506/7 Elvitigala Mawatha, Colombo 05, Sri
+          Lanka
+        </p>
+        <p><span>&#128222;</span> +94 11 230 3554</p>
+        <p><span>&#128231;</span> petsvcare@gmail.com</p>
+        <p><span>&#128337;</span> 08:30 AM - 10:00 PM</p>
+      </div>
+    </div>
+   <header class="main-header">
+	
+		  <div class="container">
+        
+        <nav class="main-nav">
+          <ul>
+            <li><a href="../../home.php">HOME</a></li>
+            <li><a href="users.php">USERS</a></li>
+            <li><a href="#">BOOK NOW</a></li>
+            <li><a href="#">PRODUCT</a></li>
+            <li><a href="#">NOTICE</a></li>
+            <li><a href="#">FEEDBACK</a></li>
+            <li><a href="../../logout.php">LOG OUT</a></li>
+          </ul>
+        </nav>
+		       		<div class = "loggedin"> welcome <?php echo $_SESSION['first_name'];?> <a href = "../../logout.php">Log Out</a></div>
+
+      </div>
+
+        
+    </header>
 
 	<main>
 		<h1>View / Modify User<span> <a href="users.php">< Back to User List</a></span></h1>
