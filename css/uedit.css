@@ -1,0 +1,184 @@
+/* Reset Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Body Styling */
+body {
+  background-color: #f0f4f8;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Top Bar */
+.top-bar {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.top-bar p {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+.top-bar span {
+  margin-right: 5px;
+}
+
+/* Header */
+.main-header {
+  background-color: #0066cc;
+  color: #fff;
+  padding: 20px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.main-header .container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+}
+
+.main-nav ul li {
+  margin-left: 20px;
+}
+
+.main-nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover {
+  color: #ffcc00;
+}
+
+.loggedin {
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.loggedin a {
+  color: #ffcc00;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.loggedin a:hover {
+  text-decoration: underline;
+}
+/* Main Content Styling */
+main {
+  max-width: 800px;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+h1 span a {
+  font-size: 1rem;
+  color: #007bff;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+h1 span a:hover {
+  text-decoration: underline;
+}
+
+/* Form Styling */
+.userform {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.userform p {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.userform label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.userform input[type="text"],
+.userform input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.userform input[type="text"]:focus,
+.userform input[type="email"]:focus {
+  border-color: #007bff;
+}
+
+/* Button Styling */
+.userform button {
+  background-color: #28a745;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.userform button:hover {
+  background-color: #218838;
+}
+
+/* Password Change Link */
+.userform a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.userform a:hover {
+  text-decoration: underline;
+}
+
+/* Error Message Styling */
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-left: 5px solid #f5c6cb;
+  border-radius: 5px;
+}
