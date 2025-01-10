@@ -1,6 +1,6 @@
 <?php session_start(); ?>
-<?php require_once('inc/connection.php'); ?>
-<?php require_once('inc/functions.php'); ?>
+<?php require_once('../../inc/connection.php'); ?>
+<?php require_once('../../inc/functions.php'); ?>
 <?php 
 	// checking if a user is logged in
 	if (!isset($_SESSION['user_id'])) {
@@ -78,7 +78,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Change Password</title>
-	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="../../css/main.css">
 </head>
 <body>
 	<header>
