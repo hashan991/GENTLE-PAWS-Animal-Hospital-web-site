@@ -3,47 +3,38 @@
 <?php require_once('../../inc/functions.php'); ?>
 
 <?php 
-    // Check if user is logged in
-    if (!isset($_SESSION['user_id'])) {
-        header('Location: index.php');
-    }
-
-
-
+	// checking if a user is logged in
+	if (!isset($_SESSION['user_id'])) {
+		header('Location: index.php');
+	}
 
     $user_list = '';
-    $current_user_id = $_SESSION['user_id'];  // Get logged-in user's ID
+	
+
+  
+    // Default query to fetch all notices
+    $query = "SELECT * FROM notice ORDER BY title";
 
 
-    
-
-     if ($current_user_id == 13) {
-        // Admin sees all bookings
-        $query = "SELECT * FROM booking ORDER BY date, time";
-    } else {
-        // Other users see only their own bookings
-        $query = "SELECT * FROM booking WHERE user_id = {$current_user_id} ORDER BY date, time";
-    }
     $users = mysqli_query($connection, $query);
-    verify_query($users);
-
-
+	verify_query($users);
 
     while ($user = mysqli_fetch_assoc($users)) {
-        $user_list .= "<tr>";
-        $user_list .= "<td>{$user['name']}</td>";
-        $user_list .= "<td>{$user['number']}</td>";
-        $user_list .= "<td>{$user['service']}</td>";
-        $user_list .= "<td>{$user['type']}</td>";
-        $user_list .= "<td>{$user['date']}</td>";
-        $user_list .= "<td>{$user['time']}</td>";
+    $user_list .= "<tr>";
+    $user_list .= "<td>{$user['title']}</td>";
+    $user_list .= "<td>{$user['description']}</td>";
+    $user_list .= "<td>{$user['category']}</td>";
+    $user_list .= "<td>{$user['audience']}</td>";
 
-        // Show Edit and Delete buttons only to the user who made the booking
-        $user_list .= "<td><a href=\"editbook.php?notice_id={$user['b_id']}\">Edit</a></td>";
-        $user_list .= "<td><a href=\"deletebook.php?user_id={$user['b_id']}\" 
+    // Show Edit and Delete buttons only for admin (user_id = 13)
+    if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == '13') {
+        $user_list .= "<td><a href=\"editNotice.php?notice_id={$user['n_id']}\">Edit</a></td>";
+        $user_list .= "<td><a href=\"deleteNotice.php?user_id={$user['n_id']}\" 
                         onclick=\"return confirm('Are you sure?');\">Delete</a></td>";
-        $user_list .= "</tr>";
     }
+
+    $user_list .= "</tr>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -91,21 +82,26 @@
 
     <main>
 
-        <h1> USERS <span> <a href = "addbook.php"> + add new </a> | <a href="book.php">Refresh</a></span></h1>
+        <h1> USERS <span> 
+        <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
+         <a href="addNotice.php">+ Add New</a> |
+         <?php endif; ?>| 
+         <a href="notice.php">Refresh</a></span></h1>
 
-       
+        
 
         <table class="masterlist">
-            <tr>
-                <th>full Name:</th>
-                <th>contact number</th>
-                <th>Type of Service</th>
-                <th>pet type</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>edit</th>
-                <th>delete</th>
-            </tr>
+           <tr>
+    <th>Notice Title</th>
+    <th>Notice Description</th>
+    <th>Notice Category</th>
+    <th>Target Audience</th>
+
+    <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == '13'): ?>
+        <th>Edit</th>
+        <th>Delete</th>
+    <?php endif; ?>
+</tr>
 
 
             <?php echo $user_list; ?>

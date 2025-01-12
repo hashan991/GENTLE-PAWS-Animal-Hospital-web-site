@@ -40,7 +40,7 @@
             <li><a href="module/users/users.php">USERS</a></li>
             <li><a href="module/bookNow/book.php">BOOK NOW</a></li>
             <li><a href="#">PRODUCT</a></li>
-            <li><a href="#">NOTICE</a></li>
+            <li><a href="module/notice/notice.php">NOTICE</a></li>
             <li><a href="#">FEEDBACK</a></li>
           </ul>
         </nav>
