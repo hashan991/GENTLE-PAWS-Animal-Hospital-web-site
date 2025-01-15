@@ -7,27 +7,28 @@
 		header('Location: index.php');
 	}
 
+
+
+
 	if (isset($_GET['user_id'])) {
 		// getting the user information
 		$user_id = mysqli_real_escape_string($connection, $_GET['user_id']);
 		
         // DELETE query to remove the notice
-        $query = "DELETE FROM booking WHERE b_id = {$user_id} LIMIT 1";
+        $query = "DELETE FROM notice WHERE n_id = {$user_id} LIMIT 1";
             
 
             $result = mysqli_query($connection,$query);
 
             if ($result){
                 //user deleted
-                header ('Location: book.php?msg=user_deleted');
+                header ('Location: notice.php?msg=user_deleted');
             }else{
-                header('Location: book.php?err=delete_failed');
+                header('Location: notice.php?err=delete_failed');
             }
         
 	} else {
-        header('Loaction: book.php');
+        header('Loaction: notice.php');
     }
-
-
 
 ?>
