@@ -71,7 +71,7 @@ if (!isset($_SESSION['user_id'])) {
 		<div class="top-bar">
       <div class="container">
         <p>
-          <span>&#128205;</span> No 506/7 Elvitigala Mawatha, Colombo 05, Sri
+          <span>&#128205;</span> No 506 Elvitigala Mawatha, Colombo 05, Sri
           Lanka
         </p>
         <p><span>&#128222;</span> +94 11 230 3554</p>
