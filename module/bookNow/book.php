@@ -15,7 +15,7 @@
     $current_user_id = $_SESSION['user_id'];  // Get logged-in user's ID
 
 
-    
+
 
      if ($current_user_id == 13) {
         // Admin sees all bookings
@@ -24,6 +24,10 @@
         // Other users see only their own bookings
         $query = "SELECT * FROM booking WHERE user_id = {$current_user_id} ORDER BY date, time";
     }
+
+
+
+    
     $users = mysqli_query($connection, $query);
     verify_query($users);
 
