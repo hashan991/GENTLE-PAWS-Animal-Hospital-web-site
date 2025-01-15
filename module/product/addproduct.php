@@ -67,6 +67,37 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="../../css/uadd.css">
 </head>
 <body>
+    <div class="top-bar">
+      <div class="container">
+        <p>
+          <span>&#128205;</span> No 506/7 Elvitigala Mawatha, Colombo 05, Sri
+          Lanka
+        </p>
+        <p><span>&#128222;</span> +94 11 230 3554</p>
+        <p><span>&#128231;</span> petsvcare@gmail.com</p>
+        <p><span>&#128337;</span> 08:30 AM - 10:00 PM</p>
+      </div>
+    </div>
+
+       <header class="main-header">
+	
+		  <div class="container">
+        
+        <nav class="main-nav">
+          <ul>
+            <li><a href="../../home.php">HOME</a></li>
+            <li><a href="../users/users.php">USERS</a></li>
+            <li><a href="../bookNow/book.php">BOOK NOW</a></li>
+            <li><a href="../product/product.php">PRODUCT</a></li>
+            <li><a href=../notice/notice.php>NOTICE</a></li>
+          </ul>
+        </nav>
+		       		<div class = "loggedin"> welcome <?php echo $_SESSION['first_name'];?> <a href = "../../logout.php">Log Out</a></div>
+
+      </div>
+
+        
+    </header>
 
 <main>
     <h1>Add New Product <span><a href="product.php">← Back to Product List</a></span></h1>

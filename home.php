@@ -36,12 +36,12 @@
        
         <nav class="main-nav">
           <ul>
-            <li><a href="#">HOME</a></li>
+            <li><a href="home.php">HOME</a></li>
             <li><a href="module/users/users.php">USERS</a></li>
             <li><a href="module/bookNow/book.php">BOOK NOW</a></li>
             <li><a href="module/product/product.php">PRODUCT</a></li>
-            <li><a href="#">NOTICE</a></li>
-            <li><a href="#">FEEDBACK</a></li>
+            <li><a href=module/notice/notice.php>NOTICE</a></li>
+            
           </ul>
         </nav>
         		       		<div class = "loggedin"> welcome <?php echo $_SESSION['first_name'];?> <a href = "logout.php">Log Out</a></div>
