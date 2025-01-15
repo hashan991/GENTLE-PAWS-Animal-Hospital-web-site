@@ -41,7 +41,7 @@
             <li><a href="module/bookNow/book.php">BOOK NOW</a></li>
             <li><a href="#">PRODUCT</a></li>
             <li><a href="module/notice/notice.php">NOTICE</a></li>
-            <li><a href="#">FEEDBACK</a></li>
+           
           </ul>
         </nav>
         		       		<div class = "loggedin"> welcome <?php echo $_SESSION['first_name'];?> <a href = "logout.php">Log Out</a></div>
