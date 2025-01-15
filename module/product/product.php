@@ -26,9 +26,12 @@
 		$user_list .= "<td>{$user['price']}</td>";
         $user_list .= "<td>{$user['stock']}</td>";
 		$user_list .= "<td>{$user['description']}</td>";
+         if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == '13') {
 		$user_list .= "<td><a href=\"editproduct.php?user_id={$user['p_id']}\">Edit</a></td>";
 		$user_list .= "<td><a href=\"deleteproduct.php?user_id={$user['p_id']}\" 
 						onclick=\"return confirm('Are you sure?');\">Delete</a></td>";
+
+         }
 		$user_list .= "</tr>";
 	}
  ?>
@@ -89,8 +92,12 @@
     </header>
 
     <main>
-
-        <h1> USERS <span> <a href = "addproduct.php"> + add new </a> | <a href="product.php">Refresh</a></span></h1>
+         
+        <h1> USERS <span> 
+        <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
+        <a href = "addproduct.php"> + add new </a> 
+        <?php endif; ?>| 
+        <a href="product.php">Refresh</a></span></h1>
 
        
 
@@ -101,8 +108,11 @@
                 <th>Price</th>
                 <th>Stock</th>
                 <th>Description</th>
+
+                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == '13'): ?>
                 <th>Edit</th>
                 <th>Delete</th>
+                 <?php endif; ?>
             </tr>
 
 
