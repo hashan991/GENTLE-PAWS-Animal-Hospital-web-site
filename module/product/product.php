@@ -10,14 +10,15 @@
 	$user_list = '';
 	
 
-	$query = "SELECT * FROM product ORDER BY created_at DESC";
+	$query = "SELECT * FROM product ORDER BY p_id DESC";
 	
 	$users = mysqli_query($connection, $query);
 
 	verify_query($users);
 
 	while ($user = mysqli_fetch_assoc($users)) {
-        $imagePath = "../../uploads/" . $product['image'];
+
+        $imagePath = "../../uploads/" . $user['image'];
 
 		$user_list .= "<tr>";
 		$user_list .= "<td><img src='{$imagePath}' width='100' height='100'></td>";
@@ -91,13 +92,7 @@
 
         <h1> USERS <span> <a href = "addproduct.php"> + add new </a> | <a href="product.php">Refresh</a></span></h1>
 
-        <div class="search">
-			<form action="users.php" method="get">
-				<p>
-					<input type="text" name="search" id="" placeholder="Type First Name, Last Name or Email Address and Press Enter" value="<?php echo $search; ?>" required autofocus>
-				</p>
-			</form>
-		</div>
+       
 
         <table class="masterlist">
             <tr>
