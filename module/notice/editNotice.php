@@ -8,67 +8,58 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: index.php');
 }
 
-    $errors = array();
-	$name = '';
-	$number = '';
-	$service = '';
-	$type = '';
-	$date = '';
-	$time = '';
+$errors = array();
+$notice_id = '';
+$title = '';
+$description = '';
+$category = '';
+$audience = '';
 
-    if (isset($_GET['notice_id'])) {
+// Fetching the notice details
+if (isset($_GET['notice_id'])) {
     $notice_id = mysqli_real_escape_string($connection, $_GET['notice_id']);
-    $query = "SELECT * FROM booking WHERE b_id = {$notice_id} LIMIT 1";
+    $query = "SELECT * FROM notice WHERE n_id = {$notice_id} LIMIT 1";
 
     $result_set = mysqli_query($connection, $query);
 
     if ($result_set && mysqli_num_rows($result_set) == 1) {
         $result = mysqli_fetch_assoc($result_set);
-        $name = $result['name'];
-        $number = $result['number'];
-        $service = $result['service'];
-        $type = $result['type'];
-        $date = $result['date'];
-        $time = $result['time'];
+        $title = $result['title'];
+        $description = $result['description'];
+        $category = $result['category'];
+        $audience = $result['audience'];
     } else {
-        header('Location: book.php?err=notice_not_found');
+        header('Location: notice.php?err=notice_not_found');
     }
 }
 
 // Updating the notice
 if (isset($_POST['submit'])) {
     $notice_id = $_POST['notice_id'];
-    $name = mysqli_real_escape_string($connection, $_POST['name']);
-    $number = mysqli_real_escape_string($connection, $_POST['number']);
-    $service = mysqli_real_escape_string($connection, $_POST['service']);
-    $type = mysqli_real_escape_string($connection, $_POST['type']);
-    $date = mysqli_real_escape_string($connection, $_POST['date']);
-    $time = mysqli_real_escape_string($connection, $_POST['time']);
+    $title = mysqli_real_escape_string($connection, $_POST['title']);
+    $description = mysqli_real_escape_string($connection, $_POST['description']);
+    $category = mysqli_real_escape_string($connection, $_POST['category']);
+    $audience = mysqli_real_escape_string($connection, $_POST['audience']);
 
     // Check for errors
     if (empty($errors)) {
-        $query = "UPDATE booking SET 
-                    name = '{$name}', 
-                    number = '{$number}', 
-                    service = '{$service}', 
-                    type = '{$type}' ,
-                    date = '{$date}' ,
-                    time = '{$time}' 
-                  WHERE b_id = {$notice_id} LIMIT 1";
+        $query = "UPDATE notice SET 
+                    title = '{$title}', 
+                    description = '{$description}', 
+                    category = '{$category}', 
+                    audience = '{$audience}' 
+                  WHERE n_id = {$notice_id} LIMIT 1";
 
         $result = mysqli_query($connection, $query);
 
         if ($result) {
-            header('Location: book.php?notice_modified=true');
+            header('Location: notice.php?notice_modified=true');
         } else {
             $errors[] = 'Failed to modify the notice.';
         }
     }
 }
-
 ?>
-
-
 
 
 
@@ -118,46 +109,29 @@ if (isset($_POST['submit'])) {
             }
         ?>
 
-        <form action="editbook.php" method="post" class="userform">
-           
+        <form action="editNotice.php" method="post" class="userform">
+            <!-- Hidden Field for Notice ID -->
             <input type="hidden" name="notice_id" value="<?php echo $notice_id; ?>">
 
+            <p>
+                <label for="title">Notice Title:</label>
+                <input type="text" name="title" value="<?php echo $title; ?>" required>
+            </p>
 
-           <p>
-				<label for="">full Name:</label>
-				<input type="text" name="name" <?php echo 'value="' . $name . '"'; ?>>
-			</p>
+            <p>
+                <label for="description">Notice Description:</label>
+                <input type="text" name="description" value="<?php echo $description; ?>" required>
+            </p>
 
-			<p>
-				<label for="">contact number</label>
-				<input type="text" name="number" <?php echo 'value="' . $number . '"'; ?>>
-			</p>
+            <p>
+                <label for="category">Notice Category:</label>
+                <input type="text" name="category" value="<?php echo $category; ?>" required>
+            </p>
 
-			<p>
-				<label for="">Type of Service </label>
-				<input type="text" name="service" <?php echo 'value="' . $service . '"'; ?>>
-			</p>
-
-			
-			<p>
-				<label for="">pet type</label>
-				<input type="text" name="type" <?php echo 'value="' . $type . '"'; ?>>
-			</p>
-
-			
-			<p>
-				<label for="">Date</label>
-				<input type="text" name="date" <?php echo 'value="' . $date . '"'; ?>>
-			</p>
-
-			
-			<p>
-				<label for="">Time</label>
-				<input type="text" name="time" <?php echo 'value="' . $time . '"'; ?>>
-			</p>
-
-			
-
+            <p>
+                <label for="audience">Target Audience:</label>
+                <input type="text" name="audience" value="<?php echo $audience; ?>" required>
+            </p>
 
             <p>
                 <button type="submit" name="submit">Save Changes</button>
