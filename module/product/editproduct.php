@@ -8,18 +8,31 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: index.php');
 }
 
-$errors = [];
+// Initialize variables
+$errors = array();
+$product_id = '';
+$name = '';
+$price = '';
+$stock = '';
+$description = '';
+$image = '';
 
 // Fetch existing product details
 if (isset($_GET['product_id'])) {
     $product_id = mysqli_real_escape_string($connection, $_GET['product_id']);
+    
     $query = "SELECT * FROM product WHERE p_id = {$product_id} LIMIT 1";
     $result_set = mysqli_query($connection, $query);
 
     verify_query($result_set);
 
-    if (mysqli_num_rows($result_set) == 1) {
-        $product = mysqli_fetch_assoc($result_set);
+    if ($result_set && mysqli_num_rows($result_set) == 1) {
+        $result = mysqli_fetch_assoc($result_set);
+        $name = $result['name'];
+        $price = $result['price'];
+        $stock = $result['stock'];
+        $description = $result['description'];
+        $image = $result['image'];
     } else {
         header('Location: product.php?err=product_not_found');
     }
@@ -32,12 +45,12 @@ if (isset($_POST['submit'])) {
     $price = mysqli_real_escape_string($connection, $_POST['price']);
     $stock = mysqli_real_escape_string($connection, $_POST['stock']);
     $description = mysqli_real_escape_string($connection, $_POST['description']);
-    $product_image = $product['image'];  // Keep the old image by default
+    $product_image = $image;  // Keep the old image by default
 
     // Check if a new image is uploaded
     if (!empty($_FILES['image']['name'])) {
         $target_dir = "../../uploads/";
-        $image_name = uniqid() . "_" . basename($_FILES['image']['name']);  // Unique filename
+        $image_name = uniqid() . "_" . basename($_FILES['image']['name']);
         $target_file = $target_dir . $image_name;
 
         // Validate file type
@@ -47,7 +60,7 @@ if (isset($_POST['submit'])) {
         if (in_array($imageFileType, $allowed_types)) {
             // Move the uploaded file
             if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-                $product_image = $image_name;  // Only save the filename
+                $product_image = $image_name;
             } else {
                 $errors[] = "Error uploading the image.";
             }
@@ -76,6 +89,7 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -118,47 +132,48 @@ if (isset($_POST['submit'])) {
 
     <?php if (!empty($errors)) display_errors($errors); ?>
 
-    <form action="editproduct.php?product_id=<?php echo $product_id; ?>" method="post" enctype="multipart/form-data" class="userform">
-        <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
+   <form action="editproduct.php?product_id=<?php echo $product_id; ?>" method="post" enctype="multipart/form-data" class="userform">
+    <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
 
-        <p>
-            <label for="">Product Name:</label>
-            <input type="text" name="name" value="<?php echo $product['name']; ?>" required>
-        </p>
+    <p>
+        <label for="">Product Name:</label>
+        <input type="text" name="name" value="<?php echo $name; ?>" required>
+    </p>
 
-        <p>
-            <label for="">Price:</label>
-            <input type="text" name="price" value="<?php echo $product['price']; ?>" required>
-        </p>
+    <p>
+        <label for="">Price:</label>
+        <input type="text" name="price" value="<?php echo $price; ?>" required>
+    </p>
 
-        <p>
-            <label for="">Stock:</label>
-            <input type="text" name="stock" value="<?php echo $product['stock']; ?>" required>
-        </p>
+    <p>
+        <label for="">Stock:</label>
+        <input type="text" name="stock" value="<?php echo $stock; ?>" required>
+    </p>
 
-        <p>
-            <label for="">Description:</label>
-            <textarea name="description" required><?php echo $product['description']; ?></textarea>
-        </p>
+    <p>
+        <label for="">Description:</label>
+        <textarea name="description" required><?php echo $description; ?></textarea>
+    </p>
 
-        <p>
-            <label for="">Current Image:</label><br>
-            <?php if (!empty($product['image'])): ?>
-                <img src="../../uploads/<?php echo $product['image']; ?>" width="150px"><br>
-            <?php else: ?>
-                <span>No image uploaded.</span>
-            <?php endif; ?>
-        </p>
+    <p>
+        <label for="">Current Image:</label><br>
+        <?php if (!empty($image)): ?>
+            <img src="../../uploads/<?php echo $image; ?>" width="150px"><br>
+        <?php else: ?>
+            <span>No image uploaded.</span>
+        <?php endif; ?>
+    </p>
 
-        <p>
-            <label for="">Upload New Image:</label>
-            <input type="file" name="image">
-        </p>
+    <p>
+        <label for="">Upload New Image:</label>
+        <input type="file" name="image">
+    </p>
 
-        <p>
-            <button type="submit" name="submit">Update Product</button>
-        </p>
-    </form>
+    <p>
+        <button type="submit" name="submit">Update Product</button>
+    </p>
+</form>
+
 </main>
 
 </body>
