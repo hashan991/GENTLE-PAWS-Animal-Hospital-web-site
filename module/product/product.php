@@ -12,12 +12,10 @@ $user_list = '';
 
 // Query to fetch product data
 $query = "SELECT * FROM product ORDER BY p_id DESC";
-
 $products = mysqli_query($connection, $query);
 verify_query($products);
 
 while ($product = mysqli_fetch_assoc($products)) {
-    // Correct image path for browser access
     $imagePath = "../../uploads/" . $product['image'];
 
     $user_list .= "<tr>";
@@ -27,8 +25,16 @@ while ($product = mysqli_fetch_assoc($products)) {
     $user_list .= "<td>{$product['stock']}</td>";
     $user_list .= "<td>{$product['description']}</td>";
 
+    // "Buy Now" button redirects to order_now.php with the product ID
+    $user_list .= "<td>
+                    <form action='../order/order_now.php' method='get'>
+                        <input type='hidden' name='product_id' value='{$product['p_id']}'>
+                        <button type='submit'>Buy Now</button>
+                    </form>
+                  </td>";
+
     // Show Edit/Delete options only for Admin (user_id = 13)
-    if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13) {
+    if ($_SESSION['user_id'] == 13) {
         $user_list .= "<td><a href=\"editproduct.php?product_id={$product['p_id']}\">Edit</a></td>";
         $user_list .= "<td><a href=\"deleteproduct.php?user_id={$product['p_id']}\" 
                         onclick=\"return confirm('Are you sure you want to delete this product?');\">Delete</a></td>";
@@ -38,20 +44,6 @@ while ($product = mysqli_fetch_assoc($products)) {
 }
 ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,7 +51,6 @@ while ($product = mysqli_fetch_assoc($products)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product List</title>
     <link rel="stylesheet" href="../../css/utable.css">
-    
 </head>
 <body>
 
@@ -90,9 +81,10 @@ while ($product = mysqli_fetch_assoc($products)) {
 <main>
     <h1>PRODUCT LIST 
         <span>
-            <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
+            <?php if ($_SESSION['user_id'] == 13): ?>
                 <a href="addproduct.php" class="action-btn">+ Add New</a>
             <?php endif; ?>
+             <a href="../order/orderhistory.php" class="action-btn">MY orders</a>
             <a href="product.php" class="action-btn">Refresh</a>
         </span>
     </h1>
@@ -104,7 +96,8 @@ while ($product = mysqli_fetch_assoc($products)) {
             <th>Price</th>
             <th>Stock</th>
             <th>Description</th>
-            <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
+            <th>Buy Now</th>
+            <?php if ($_SESSION['user_id'] == 13): ?>
                 <th>Edit</th>
                 <th>Delete</th>
             <?php endif; ?>
