@@ -14,7 +14,9 @@ $errors = [];
 // Fetch product details if product_id is passed
 if (isset($_GET['product_id'])) {
     $product_id = mysqli_real_escape_string($connection, $_GET['product_id']);
+
     $product_query = "SELECT * FROM product WHERE p_id = {$product_id}";
+    
     $product_result = mysqli_query($connection, $product_query);
     $product = mysqli_fetch_assoc($product_result);
 }

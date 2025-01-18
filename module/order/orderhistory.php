@@ -14,18 +14,29 @@ $current_user_id = mysqli_real_escape_string($connection, $_SESSION['user_id']);
 
 // Admin sees all orders (assuming user_id 13 is Admin)
 if ($current_user_id == 13) {
-    $query = "SELECT * FROM orders ORDER BY order_date DESC";
+    $query = "SELECT o.*, p.image AS product_image, p.name AS product_name 
+              FROM orders o 
+              JOIN product p ON o.product_id = p.p_id 
+              ORDER BY o.order_date DESC";
 } else {
     // Regular users see only their orders
-    $query = "SELECT * FROM orders WHERE user_id = {$current_user_id} ORDER BY order_date DESC";
+    $query = "SELECT o.*, p.image AS product_image, p.name AS product_name 
+              FROM orders o 
+              JOIN product p ON o.product_id = p.p_id 
+              WHERE o.user_id = {$current_user_id} 
+              ORDER BY o.order_date DESC";
 }
 
 $orders = mysqli_query($connection, $query);
 verify_query($orders);
 
 while ($order = mysqli_fetch_assoc($orders)) {
+    $product_image_path = "../../uploads/" . $order['product_image'];
+
     $user_list .= "<tr>";
     $user_list .= "<td>{$order['order_id']}</td>";
+    $user_list .= "<td><img src='{$product_image_path}' width='80' height='80' alt='Product Image'></td>";  // Display Product Image
+    $user_list .= "<td>{$order['product_name']}</td>";  // Display Product Name
     $user_list .= "<td>{$order['quantity']}</td>";
     $user_list .= "<td>Rs. {$order['total_price']}</td>";
     $user_list .= "<td>{$order['status']}</td>";
@@ -34,12 +45,12 @@ while ($order = mysqli_fetch_assoc($orders)) {
     $user_list .= "<td>{$order['address']}</td>";
     $user_list .= "<td>{$order['payment_method']}</td>";
 
-    // Allow Edit/Delete for Admin or the user who placed the order
-   if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == '13') {
-        $user_list .= "<td><a href=\"edit_order.php?order_id={$order['order_id']}\">Edit</a></td>";
-        $user_list .= "<td><a href=\"delete_order.php?order_id={$order['order_id']}\" 
+    // Allow Edit/Delete for Admin only
+    if ($_SESSION['user_id'] == '13') {
+        $user_list .= "<td><a href=\"editorder.php?order_id={$order['order_id']}\">Edit</a></td>";
+        $user_list .= "<td><a href=\"deleteorder.php?order_id={$order['order_id']}\" 
                             onclick=\"return confirm('Are you sure you want to delete this order?');\">Delete</a></td>";
-    } 
+    }
 
     $user_list .= "</tr>";
 }
@@ -84,6 +95,8 @@ while ($order = mysqli_fetch_assoc($orders)) {
     <table class="masterlist">
         <tr>
             <th>Order ID</th>
+            <th>Product Image</th>
+            <th>Product Name</th>
             <th>Quantity</th>
             <th>Total Price</th>
             <th>Status</th>
@@ -91,9 +104,9 @@ while ($order = mysqli_fetch_assoc($orders)) {
             <th>Customer Name</th>
             <th>Address</th>
             <th>Payment Method</th>
-            <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == '13'): ?>
-            <th>Edit</th>
-            <th>Delete</th>
+            <?php if ($_SESSION['user_id'] == '13'): ?>
+                <th>Edit</th>
+                <th>Delete</th>
             <?php endif; ?>
         </tr>
 
