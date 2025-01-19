@@ -32,57 +32,62 @@ if (isset($_GET['order_id'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Successful</title>
-    <link rel="stylesheet" href="../../css/uadd.css">
+    <link rel="stylesheet" href="../../css/pay.css">
+   
 </head>
 <body>
+ <div class="top-bar">
+      <div class="container">
+        <p>
+          <span>&#128205;</span> No 506/7 Elvitigala Mawatha, Colombo 05, Sri
+          Lanka
+        </p>
+        <p><span>&#128222;</span> +94 11 230 3554</p>
+        <p><span>&#128231;</span> petsvcare@gmail.com</p>
+        <p><span>&#128337;</span> 08:30 AM - 10:00 PM</p>
+      </div>
+    </div>
 
-<h1>Payment Successful!</h1>
-<p>Your order has been successfully placed and paid.</p>
+   <header class="main-header">
+	
+		  <div class="container">
+        
+        <nav class="main-nav">
+          <ul>
+           <li><a href="../../home.php">HOME</a></li>
+<?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
+    <li><a href="../users/users.php">USERS</a></li>
+<?php endif; ?>
+                    <li><a href="../bookNow/book.php">BOOK NOW</a></li>
+                    <li><a href="../product/product.php">PRODUCT</a></li>
+                    <li><a href="../notice/notice.php">NOTICE</a></li>
+          </ul>
+        </nav>
+		       		<div class = "loggedin"> welcome <?php echo $_SESSION['first_name'];?> <a href = "../../logout.php">Log Out</a></div>
 
-<!-- Displaying Order Details -->
-<h2>Order Details</h2>
-<table border="1" cellpadding="10">
-    <tr>
-        <th>Order ID</th>
-        <td><?php echo htmlspecialchars($order['order_id']); ?></td>
-    </tr>
-    <tr>
-        <th>Quantity</th>
-        <td><?php echo htmlspecialchars($order['quantity']); ?></td>
-    </tr>
-    <tr>
-        <th>Product Price</th>
-        <td>Rs. <?php echo number_format($order['product_price'], 2); ?></td>
-    </tr>
-    <tr>
-        <th>Total Price</th>
-        <td>Rs. <?php echo number_format($order['total_price'], 2); ?></td>
-    </tr>
-    <tr>
-        <th>Status</th>
-        <td><?php echo htmlspecialchars($order['status']); ?></td>
-    </tr>
-    <tr>
-        <th>Order Date</th>
-        <td><?php echo htmlspecialchars($order['order_date']); ?></td>
-    </tr>
-    <tr>
-        <th>Customer Name</th>
-        <td><?php echo htmlspecialchars($order['customer_name']); ?></td>
-    </tr>
-    <tr>
-        <th>Address</th>
-        <td><?php echo htmlspecialchars($order['address']); ?></td>
-    </tr>
-    <tr>
-        <th>Payment Method</th>
-        <td><?php echo htmlspecialchars($order['payment_method']); ?></td>
-    </tr>
-</table>
+      </div>
 
-<!-- Link to continue shopping -->
-<p><a href="../product/product.php">Continue Shopping</a></p>
+        
+    </header>
 
+    <div class="summary-container">
+        <h1>Payment Successful!</h1>
+        <p>Your order has been placed successfully.</p>
+
+        <div class="summary-details">
+            <p>Order ID: <span><?php echo htmlspecialchars($order['order_id']); ?></span></p>
+            <p>Quantity: <span><?php echo htmlspecialchars($order['quantity']); ?></span></p>
+            <p>Product Price: <span>Rs. <?php echo number_format($order['product_price'], 2); ?></span></p>
+            <p>Delivery: <span>Rs. 0.00</span></p>
+            <p>Tax: <span>Rs. 0.00</span></p>
+            <p>Status: <span><?php echo htmlspecialchars($order['status']); ?></span></p>
+            <p>Payment Method: <span><?php echo htmlspecialchars($order['payment_method']); ?></span></p>
+            <p class="summary-total">TOTAL: Rs. <?php echo number_format($order['total_price'], 2); ?></p>
+        </div>
+
+        <a href="../product/product.php" class="continue-link">Continue Shopping</a>
+    </div>
 </body>
 </html>
