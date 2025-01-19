@@ -14,6 +14,23 @@ body {
   line-height: 1.6;
 }
 
+.action-btn {
+        background-color: #0066cc;
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .action-btn:hover {
+        background-color: #ff6600;
+         color: #ffffff;
+        transform: scale(1.05);
+    }
+    
 /* Top Bar */
 .top-bar {
   background-color: #333;

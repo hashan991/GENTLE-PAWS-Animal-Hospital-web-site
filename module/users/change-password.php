@@ -76,13 +76,13 @@
   <div class="container">
     <nav class="main-nav">
       <ul>
-        <li><a href="../../home.php">HOME</a></li>
-        <li><a href="users.php">USERS</a></li>
-        <li><a href="#">BOOK NOW</a></li>
-        <li><a href="#">PRODUCT</a></li>
-        <li><a href="#">NOTICE</a></li>
-        <li><a href="#">FEEDBACK</a></li>
-        <li><a href="../../logout.php">LOG OUT</a></li>
+           <li><a href="../../home.php">HOME</a>
+<?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
+    <li><a href="../users/users.php">USERS</a></li>
+<?php endif; ?>
+                    <li><a href="../bookNow/book.php">BOOK NOW</a></li>
+                    <li><a href="../product/product.php">PRODUCT</a></li>
+                    <li><a href="../notice/notice.php">NOTICE</a></li>
       </ul>
     </nav>
     <div class="loggedin">Welcome, <?php echo $_SESSION['first_name']; ?> | <a href="../../logout.php">Logout</a></div>
@@ -92,7 +92,7 @@
 <main>
   <div class="form-container">
     <h1>🔒 Change Password</h1>
-    <a href="users.php" class="back-link">← Back to User List</a>
+    <a href="users.php " class="back-link">← Back to User List</a>
 
     <?php if (!empty($errors)) { display_errors($errors); } ?>
 

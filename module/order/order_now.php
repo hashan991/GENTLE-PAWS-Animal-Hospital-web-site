@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $quantity = mysqli_real_escape_string($connection, $_POST['quantity']);
     $customer_name = mysqli_real_escape_string($connection, $_POST['customer_name']);
     $address = mysqli_real_escape_string($connection, $_POST['address']);
+    $payment_method = mysqli_real_escape_string($connection, $_POST['payment_method']);
     $user_id = $_SESSION['user_id'];
 
     // Fetch product details again for price calculation
@@ -39,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $total_price = $product_price * $quantity;
 
         // Insert order with status 'Pending'
-        $order_query = "INSERT INTO orders (user_id, product_id, quantity, product_price, total_price, status, customer_name, address) 
-                        VALUES ('$user_id', '$product_id', '$quantity', '$product_price', '$total_price', 'Pending', '$customer_name', '$address')";
+        $order_query = "INSERT INTO orders (user_id, product_id, quantity, product_price, total_price, status, customer_name, address , payment_method) 
+                        VALUES ('$user_id', '$product_id', '$quantity', '$product_price', '$total_price', 'Pending', '$customer_name', '$address' , '$payment_method')";
         $order_result = mysqli_query($connection, $order_query);
 
         if ($order_result) {
@@ -51,8 +52,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mysqli_query($connection, $update_stock);
 
             // Redirect to payment page with order ID and total price
-            header("Location: payment.php?order_id={$order_id}&total_price={$total_price}");
-            exit();
+            // Redirect based on payment method
+          if ($payment_method === 'Cash on Delivery' || $payment_method === 'Bank Transfer') {
+                // Redirect to payment_success.php for Cash on Delivery or Bank Transfer
+             header("Location: payment_success.php?order_id={$order_id}");
+                exit();
+            } else {
+                // Redirect to payment.php for Credit Card
+                header("Location: payment.php?order_id={$order_id}&total_price={$total_price}");
+                exit();
+            }
+
         } else {
             echo "<h2>Order Failed!</h2>";
             echo "<p>There was a problem placing your order. Please try again.</p>";
@@ -88,7 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <nav class="main-nav">
             <ul>
                 <li><a href="../../home.php">HOME</a></li>
-                <li><a href="../users/users.php">USERS</a></li>
+<?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
+    <li><a href="../users/users.php">USERS</a></li>
+<?php endif; ?>
                 <li><a href="../product/product.php">PRODUCTS</a></li>
                 <li><a href="../../logout.php">LOG OUT</a></li>
             </ul>
@@ -127,6 +139,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="number" name="quantity" min="1" max="<?php echo $product['stock']; ?>" required>
             </p>
 
+            <p>
+                <label for="payment_method">Select Payment Method:</label>
+                <select name="payment_method" id="payment_method" required>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                    <option value="Cash on Delivery">Cash on Delivery</option>
+                </select>
+            </p>
             <p>
                 <button type="submit">Place Order</button>
             </p>

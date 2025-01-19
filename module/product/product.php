@@ -68,10 +68,12 @@ while ($product = mysqli_fetch_assoc($products)) {
         <nav class="main-nav">
             <ul>
                 <li><a href="../../home.php">HOME</a></li>
-                <li><a href="../users/users.php">USERS</a></li>
-                <li><a href="../bookNow/book.php">BOOK NOW</a></li>
-                <li><a href="../product/product.php">PRODUCT</a></li>
-                <li><a href="../notice/notice.php">NOTICE</a></li>
+<?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
+    <li><a href="../users/users.php">USERS</a></li>
+<?php endif; ?>
+                    <li><a href="../bookNow/book.php">BOOK NOW</a></li>
+                    <li><a href="../product/product.php">PRODUCT</a></li>
+                    <li><a href="../notice/notice.php">NOTICE</a></li>
             </ul>
         </nav>
         <div class="loggedin">Welcome <?php echo $_SESSION['first_name']; ?> | <a href="../../logout.php">Log Out</a></div>
@@ -82,10 +84,9 @@ while ($product = mysqli_fetch_assoc($products)) {
     <h1>PRODUCT LIST 
         <span>
             <?php if ($_SESSION['user_id'] == 13): ?>
-                <a href="addproduct.php" class="action-btn">+ Add New</a>
+                <a href="addproduct.php" class="action-btn">+ Add Product</a>
             <?php endif; ?>
              <a href="../order/orderhistory.php" class="action-btn">MY orders</a>
-            <a href="product.php" class="action-btn">Refresh</a>
         </span>
     </h1>
 

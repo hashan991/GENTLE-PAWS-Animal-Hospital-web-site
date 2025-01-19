@@ -7,30 +7,43 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+
+$payment_methode = '';
+
 // Get order details
 $order_id = isset($_GET['order_id']) ? mysqli_real_escape_string($connection, $_GET['order_id']) : '';
 $total_price = isset($_GET['total_price']) ? mysqli_real_escape_string($connection, $_GET['total_price']) : '';
 
+ $order_id = mysqli_real_escape_string($connection, $_GET['order_id']);
+    $query = "SELECT * FROM orders WHERE order_id = {$order_id} LIMIT 1";
+    $result_set = mysqli_query($connection, $query);
+
+ if ($result_set && mysqli_num_rows($result_set) == 1) {
+        $result = mysqli_fetch_assoc($result_set);
+        $payment_method = $result['payment_method'];
+    } else {
+        header('Location: orderhistory.php?err=order_not_found');
+        exit;
+    }
+
+
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $order_id = mysqli_real_escape_string($connection, $_POST['order_id']);
-    $payment_method = mysqli_real_escape_string($connection, $_POST['payment_method']);
     $payment_details = mysqli_real_escape_string($connection, $_POST['payment_details']);
 
     // Allowed payment methods
     $allowed_methods = ['Pending', 'Bank Transfer', 'Credit Card', 'Cash on Delivery'];
 
-    // Validate payment method
-    if (!in_array($payment_method, $allowed_methods)) {
-        echo "<h2>Invalid Payment Method!</h2>";
-        exit;
-    }
+   
 
     // Determine the status
     //$status = ($payment_method === 'Cash on Delivery') ? 'Pending' : 'Paid';
 
     // Update the order with payment method and status
     $update_order = "UPDATE orders 
-                     SET payment_method = '$payment_method', 
+                     SET
                          payment_details = '$payment_details'
                     
                          
@@ -54,28 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Payment Page</title>
     <link rel="stylesheet" href="../../css/uadd.css">
-    <script>
-        // Show/Hide payment details based on payment method
-        function togglePaymentDetails() {
-            const paymentMethod = document.getElementById("payment_method").value;
-            const paymentDetails = document.getElementById("payment_details");
-
-            if (paymentMethod === "Credit Card" || paymentMethod === "Bank Transfer") {
-                paymentDetails.required = true;
-                paymentDetails.placeholder = "Enter your payment details (e.g., card number, bank info)";
-                paymentDetails.disabled = false;
-            } else {
-                paymentDetails.required = false;
-                paymentDetails.placeholder = "No details required for Cash on Delivery";
-                paymentDetails.disabled = true;
-                paymentDetails.value = "";  // Clear the field if disabled
-            }
-        }
-
-        window.onload = function() {
-            togglePaymentDetails();  // Initialize on page load
-        };
-    </script>
+   
 </head>
 <body>
 
@@ -91,9 +83,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
         <nav class="main-nav">
             <ul>
-                <li><a href="../../home.php">HOME</a></li>
-                <li><a href="../product/product.php">PRODUCTS</a></li>
-                <li><a href="../../logout.php">LOG OUT</a></li>
+              <li><a href="../../home.php">HOME</a></li>
+<?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
+    <li><a href="../users/users.php">USERS</a></li>
+<?php endif; ?>
+                    <li><a href="../bookNow/book.php">BOOK NOW</a></li>
+                    <li><a href="../product/product.php">PRODUCT</a></li>
+                    <li><a href="../notice/notice.php">NOTICE</a></li>
             </ul>
         </nav>
     </div>
@@ -108,14 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="hidden" name="order_id" value="<?php echo htmlspecialchars($order_id); ?>">
         <input type="hidden" name="total_price" value="<?php echo htmlspecialchars($total_price); ?>">
 
-        <p>
-            <label for="payment_method">Select Payment Method:</label>
-            <select name="payment_method" id="payment_method" onchange="togglePaymentDetails()" required>
-                <option value="Credit Card">Credit Card</option>
-                <option value="Bank Transfer">Bank Transfer</option>
-                <option value="Cash on Delivery">Cash on Delivery</option>
-            </select>
-        </p>
+      
+
 
         <p>
             <label for="payment_details">Payment Details:</label>

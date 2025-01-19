@@ -78,7 +78,7 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Notice</title>
+    <title>Edit booking</title>
     <link rel="stylesheet" href="../../css/uadd.css">
 </head>
 <body>
@@ -97,12 +97,12 @@ if (isset($_POST['submit'])) {
             <nav class="main-nav">
                 <ul>
                     <li><a href="../../home.php">HOME</a></li>
-                    <li><a href="users.php">USERS</a></li>
-                    <li><a href="#">BOOK NOW</a></li>
-                    <li><a href="#">PRODUCT</a></li>
-                    <li><a href="notice.php">NOTICE</a></li>
-                    <li><a href="#">FEEDBACK</a></li>
-                    <li><a href="../../logout.php">LOG OUT</a></li>
+<?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
+    <li><a href="../users/users.php">USERS</a></li>
+<?php endif; ?>
+                    <li><a href="../bookNow/book.php">BOOK NOW</a></li>
+                    <li><a href="../product/product.php">PRODUCT</a></li>
+                    <li><a href="../notice/notice.php">NOTICE</a></li>
                 </ul>
             </nav>
             <div class="loggedin">Welcome <?php echo $_SESSION['first_name']; ?> | <a href="../../logout.php">Log Out</a></div>
@@ -110,7 +110,7 @@ if (isset($_POST['submit'])) {
     </header>
 
     <main>
-        <h1>Edit Notice <span><a href="notice.php">← Back to Notice List</a></span></h1>
+        <h1>Edit booking <span><a href="book.php"   class="action-btn"  >← bookig List</a></span></h1>
 
         <?php 
             if (!empty($errors)) {

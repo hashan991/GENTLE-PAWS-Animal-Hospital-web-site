@@ -61,12 +61,12 @@
         <nav class="main-nav">
           <ul>
             <li><a href="../../home.php">HOME</a></li>
-            <li><a href="users.php">USERS</a></li>
-            <li><a href="#">BOOK NOW</a></li>
-            <li><a href="#">PRODUCT</a></li>
-            <li><a href="#">NOTICE</a></li>
-            <li><a href="#">FEEDBACK</a></li>
-            <li><a href="../../logout.php">LOG OUT</a></li>
+<?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
+    <li><a href="../users/users.php">USERS</a></li>
+<?php endif; ?>
+                    <li><a href="../bookNow/book.php">BOOK NOW</a></li>
+                    <li><a href="../product/product.php">PRODUCT</a></li>
+                    <li><a href="../notice/notice.php">NOTICE</a></li>
           </ul>
         </nav>
 		       		<div class = "loggedin"> welcome <?php echo $_SESSION['first_name'];?> <a href = "../../logout.php">Log Out</a></div>
@@ -78,7 +78,7 @@
 
     <main>
 
-        <h1> USERS <span> <a href = "add-user.php"> + add new </a> | <a href="users.php">Refresh</a></span></h1>
+        <h1> USERS <span> <a href = "add-user.php" class="action-btn" > + add new </a></span></h1>
 
         <div class="search">
 			<form action="users.php" method="get">

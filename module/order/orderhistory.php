@@ -79,7 +79,9 @@ while ($order = mysqli_fetch_assoc($orders)) {
         <nav class="main-nav">
             <ul>
                 <li><a href="../../home.php">HOME</a></li>
-                <li><a href="../users/users.php">USERS</a></li>
+<?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
+    <li><a href="../users/users.php">USERS</a></li>
+<?php endif; ?>
                 <li><a href="../bookNow/book.php">BOOK NOW</a></li>
                 <li><a href="../product/product.php">PRODUCTS</a></li>
                 <li><a href="../notice/notice.php">NOTICE</a></li>
@@ -90,7 +92,7 @@ while ($order = mysqli_fetch_assoc($orders)) {
 </header>
 
 <main>
-    <h1>Order History <span><a href="../product/product.php">Products</a> | <a href="book.php">Refresh</a></span></h1>
+    <h1>Order History <span><a href="../product/product.php" class="action-btn" >Products</a> </span></h1>
 
     <table class="masterlist">
         <tr>

@@ -135,6 +135,24 @@ h1 a:hover {
   transition: 0.3s;
   font-size: 1rem;
 }
+.action-btn {
+        background-color: #0066cc;
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .action-btn:hover {
+        background-color: #ff6600;
+         color: #ffffff;
+        transform: scale(1.05);
+    }
+
+   
 
 /* Table Styling */
 .masterlist {
