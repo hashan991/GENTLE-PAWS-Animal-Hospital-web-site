@@ -3,10 +3,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f4f4f4;
   color: #333;
   line-height: 1.6;
@@ -103,22 +103,44 @@ h1 {
   font-size: 2rem;
   margin-bottom: 20px;
   color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 h1 a {
   font-size: 1rem;
   text-decoration: none;
   color: #0066cc;
-  margin-left: 10px;
 }
 
 h1 a:hover {
   color: #ff6600;
 }
 
+/* Action Button */
+.action-btn {
+  background-color: #0066cc;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.action-btn:hover {
+  background-color: #ff6600;
+   color: #fff;
+  transform: scale(1.05);
+}
+
 /* Form Styling */
 .userform {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .userform p {
@@ -133,25 +155,34 @@ h1 a:hover {
 }
 
 .userform input[type="text"],
-.userform input[type="password"] {
+.userform input[type="number"],
+.userform textarea,
+.userform input[type="file"] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .userform input[type="text"]:focus,
-.userform input[type="password"]:focus {
+.userform input[type="number"]:focus,
+.userform textarea:focus,
+.userform input[type="file"]:focus {
   border-color: #0066cc;
   box-shadow: 0 0 5px rgba(0, 102, 204, 0.5);
+}
+
+.userform textarea {
+  resize: vertical;
+  min-height: 100px;
 }
 
 .userform button {
   background-color: #0066cc;
   color: #fff;
-  padding: 10px 25px;
+  padding: 12px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;

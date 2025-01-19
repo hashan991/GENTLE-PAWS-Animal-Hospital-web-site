@@ -1,11 +1,8 @@
 <?php session_start(); ?>
-<?php require_once('../../inc/connection.php'); ?>
-<?php require_once('../../inc/functions.php'); ?>
+<?php require_once('inc/connection.php'); ?>
+<?php require_once('inc/functions.php'); ?>
 <?php 
-	// checking if a user is logged in
-	if (!isset($_SESSION['user_id'])) {
-		header('Location: index.php');
-	}
+	
 
 	$errors = array();
 	$first_name = '';
@@ -63,7 +60,7 @@
 
 			if ($result) {
 				// query successful... redirecting to users page
-				header('Location: users.php?user_added=true');
+				header('Location: login.php?user_added=true');
 			} else {
 				$errors[] = 'Failed to add the new record.';
 			}
@@ -82,85 +79,55 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Add New User</title>
-	<link rel="stylesheet" href="../../css/uadd.css">
+	<title>Log In - User Management System</title>
+	<link rel="stylesheet" href="css/style1.css">
 </head>
 <body>
-		<div class="top-bar">
-      <div class="container">
-        <p>
-          <span>&#128205;</span> No 506/7 Elvitigala Mawatha, Colombo 05, Sri
-          Lanka
-        </p>
-        <p><span>&#128222;</span> +94 11 230 3554</p>
-        <p><span>&#128231;</span> petsvcare@gmail.com</p>
-        <p><span>&#128337;</span> 08:30 AM - 10:00 PM</p>
-      </div>
-    </div>
-   <header class="main-header">
-	
-		  <div class="container">
-        
-        <nav class="main-nav">
-          <ul>
-            <li><a href="../../home.php">HOME</a>
-<?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
-    <li><a href="../users/users.php">USERS</a></li>
-<?php endif; ?>
-                    <li><a href="../bookNow/book.php">BOOK NOW</a></li>
-                    <li><a href="../product/product.php">PRODUCT</a></li>
-                    <li><a href="../notice/notice.php">NOTICE</a></li>
-          </ul>
-        </nav>
-		       		<div class = "loggedin"> welcome <?php echo $_SESSION['first_name'];?> <a href = "../../logout.php">Log Out</a></div>
-
-      </div>
-
-        
-    </header>
-
-	<main>
-		<h1>Add New User<span> <a href="users.php" class="action-btn" >< Back to User List</a></span></h1>
-
-		<?php 
-
-			if (!empty($errors)) {
-				display_errors($errors);
-			}
-
-		 ?>
-
-		<form action="add-user.php" method="post" class="userform">
+	<div class="login-container">
+<div class="login-container">
+    <!-- Left Section -->
+    <div class="login-left">
 			
-			<p>
+      		<h2>Welcome Back</h2>
+      		<p>Thank you for getting back, please login to your account by filling these forms:</p>
+		<form action="register.php" method="post">
+			
+			<div class="input-group">
 				<label for="">First Name:</label>
 				<input type="text" name="first_name" <?php echo 'value="' . $first_name . '"'; ?>>
-			</p>
+			</div>
 
-			<p>
+			<div class="input-group">
 				<label for="">Last Name:</label>
 				<input type="text" name="last_name" <?php echo 'value="' . $last_name . '"'; ?>>
-			</p>
+			</div>
 
-			<p>
+			<div class="input-group">
 				<label for="">Email Address:</label>
 				<input type="text" name="email" <?php echo 'value="' . $email . '"'; ?>>
-			</p>
+			</div>
 
-			<p>
+			<div class="input-group">
 				<label for="">New Password:</label>
 				<input type="password" name="password">
-			</p>
+			</div>
 
-			<p>
+			<div class="input-group">
 				<label for="">&nbsp;</label>
-				<button type="submit" name="submit">Save</button>
-			</p>
+				<button type="submit" name="submit" class="btn login-btn" >Save</button>
+			</div>
 
 		</form>
 
 		
 		
-	</main>
+	</div>
+	<div class="login-right">
+      <div class="overlay">
+        <h1>THE <span>GENTLE PAWS</span></h1>
+        <p> Animal Hospitals</p>
+      </div>
+    </div>
+</div> <!-- .login -->
 </body>
 </html>

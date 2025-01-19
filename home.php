@@ -37,9 +37,11 @@
         <nav class="main-nav">
           <ul>
             <li><a href="home.php">HOME</a></li>
-            <li><a href="module/users/users.php">USERS</a></li>
+<?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
+    <li><a href="module/users/users.php">USERS</a></li>
+<?php endif; ?>
             <li><a href="module/bookNow/book.php">BOOK NOW</a></li>
-            <li><a href="#">PRODUCT</a></li>
+            <li><a href="module/product/product.php">PRODUCT</a></li>
             <li><a href="module/notice/notice.php">NOTICE</a></li>
 
           </ul>
@@ -50,6 +52,10 @@
     </header>
 
     <section class="hero">
+      <video autoplay muted loop playsinline class="background-video">
+        <source src="img/nnn.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
       <div class="hero-content">
         <h1>Welcome to GENTLE PAWS Animal Hospital</h1>
         <p>
@@ -99,7 +105,7 @@
         <!-- Image -->
         <div class="info-image">
           <img
-            src="https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?cs=srgb&dl=pexels-chevanon-1108099.jpg&fm=jpg&w=640&h=480&_gl=1*17yfrk1*_ga*MTUzMjAxNTMwMi4xNzM2MzEwMjMw*_ga_8JE65Q40S6*MTczNjMxNTk0MS4yLjEuMTczNjMxNTk1OC4wLjAuMA.."
+            src="img/kkk.jpg"
             alt="Golden Retrievers in a Field"
           />
         </div>
@@ -140,7 +146,7 @@
       <div class="container">
         <!-- Logo and Description -->
         <div class="footer-logo">
-          <img src='https://images.pexels.com/photos/2173872/pexels-photo-2173872.jpeg?cs=srgb&dl=pexels-alexasfotos-2173872.jpg&fm=jpg&w=640&h=640&_gl=1*ilkx6f*_ga*MTUzMjAxNTMwMi4xNzM2MzEwMjMw*_ga_8JE65Q40S6*MTczNjMxODU3OC4zLjEuMTczNjMxODY5NC4wLjAuMA..' alt="PetsVCare Logo" />
+          <img src='img/a.jpg' alt="PetsVCare Logo" />
           <p>
             The PetsVCare Animal Hospital is one of the<br />
             leading Vet hospitals in Sri Lanka. Your pet will be<br />
