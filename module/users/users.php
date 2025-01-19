@@ -62,7 +62,7 @@
           <ul>
             <li><a href="../../home.php">HOME</a></li>
 <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
-    <li><a href="../users/users.php">USERS</a></li>
+    <li><a href="users.php">USERS</a></li>
 <?php endif; ?>
                     <li><a href="../bookNow/book.php">BOOK NOW</a></li>
                     <li><a href="../product/product.php">PRODUCT</a></li>
