@@ -119,8 +119,5 @@ Feel free to reach out if you have any questions or suggestions:
 
 ---
 
-### **How to Add This to Your GitHub Repository**
-1. Update the `README.md` file in your project directory with this template.
-2. Replace placeholder links like `path/to/homepage-screenshot.png` with actual paths or URLs.
-3. Commit and push the changes to your GitHub repository.
+
 
