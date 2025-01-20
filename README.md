@@ -80,7 +80,7 @@ Gentle Paws Animal Hospital is a responsive, user-friendly web application desig
 
 ### **Screenshots**
 #### Home Page:
-![Home Page](img/555.mp4)
+![Home Page](img/sss.png)
 
 #### Admin Dashboard:
 ![Admin Dashboard](img/sss1.png)
