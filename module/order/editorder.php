@@ -61,7 +61,6 @@ $total_price = (float)$product_price * (int)$quantity;
         $query = "UPDATE orders SET 
                     quantity = '{$quantity}', 
                     total_price = '{$total_price}', 
-                      order_date = NOW(),  -- Automatically updates to current date
                     status = '{$status}', 
                     customer_name = '{$customer_name}', 
                     address = '{$address}',
@@ -72,7 +71,7 @@ $total_price = (float)$product_price * (int)$quantity;
 
         if ($result) {
             // Redirect to payment page with order ID and total price
-            header("Location: payment_success.php?order_id={$order_id}&total_price={$total_price}");
+            header("Location: orderhistory.php?");
             exit;
         } else {
             $errors[] = 'Failed to update the order. Error: ' . mysqli_error($connection);
