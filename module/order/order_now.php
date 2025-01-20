@@ -85,28 +85,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<div class="top-bar">
-    <div class="container">
-        <p><span>&#128205;</span> No 506/7 Elvitigala Mawatha, Colombo 05, Sri Lanka</p>
+ <div class="top-bar">
+      <div class="container">
+        <p>
+          <span>&#128205;</span> No 506/7 Elvitigala Mawatha, Colombo 05, Sri
+          Lanka
+        </p>
         <p><span>&#128222;</span> +94 11 230 3554</p>
         <p><span>&#128231;</span> petsvcare@gmail.com</p>
+        <p><span>&#128337;</span> 08:30 AM - 10:00 PM</p>
+      </div>
     </div>
-</div>
 
-<header class="main-header">
-    <div class="container">
+   <header class="main-header">
+	
+		  <div class="container">
+        
         <nav class="main-nav">
-            <ul>
-                <li><a href="../../home.php">HOME</a></li>
+          <ul>
+           <li><a href="../../home.php">HOME</a></li>
 <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == 13): ?>
     <li><a href="../users/users.php">USERS</a></li>
 <?php endif; ?>
-                <li><a href="../product/product.php">PRODUCTS</a></li>
-                <li><a href="../../logout.php">LOG OUT</a></li>
-            </ul>
+                    <li><a href="../bookNow/book.php">BOOK NOW</a></li>
+                    <li><a href="../product/product.php">PRODUCT</a></li>
+                    <li><a href="../notice/notice.php">NOTICE</a></li>
+          </ul>
         </nav>
-    </div>
-</header>
+		       		<div class = "loggedin"> welcome <?php echo $_SESSION['first_name'];?> <a href = "../../logout.php">Log Out</a></div>
+
+      </div>
+
+        
+    </header>
 
 <main>
     <h1>Place Your Order</h1>

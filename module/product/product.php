@@ -15,32 +15,9 @@ $query = "SELECT * FROM product ORDER BY p_id DESC";
 $products = mysqli_query($connection, $query);
 verify_query($products);
 
-while ($product = mysqli_fetch_assoc($products)) {
-    $imagePath = "../../uploads/" . $product['image'];
-
-    $user_list .= "<tr>";
-    $user_list .= "<td><img src='{$imagePath}' width='100' height='100' alt='Product Image'></td>";
-    $user_list .= "<td>{$product['name']}</td>";
-    $user_list .= "<td>{$product['price']}</td>";
-    $user_list .= "<td>{$product['stock']}</td>";
-    $user_list .= "<td>{$product['description']}</td>";
-
-    // "Buy Now" button redirects to order_now.php with the product ID
-    $user_list .= "<td>
-                    <form action='../order/order_now.php' method='get'>
-                        <input type='hidden' name='product_id' value='{$product['p_id']}'>
-                        <button type='submit'>Buy Now</button>
-                    </form>
-                  </td>";
-
-    // Show Edit/Delete options only for Admin (user_id = 13)
-    if ($_SESSION['user_id'] == 13) {
-        $user_list .= "<td><a href=\"editproduct.php?product_id={$product['p_id']}\">Edit</a></td>";
-        $user_list .= "<td><a href=\"deleteproduct.php?user_id={$product['p_id']}\" 
-                        onclick=\"return confirm('Are you sure you want to delete this product?');\">Delete</a></td>";
-    }
-
-    $user_list .= "</tr>";
+// Ensure there are products in the database
+if (mysqli_num_rows($products) == 0) {
+    $products = null; // No products available
 }
 ?>
 
@@ -50,7 +27,7 @@ while ($product = mysqli_fetch_assoc($products)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product List</title>
-    <link rel="stylesheet" href="../../css/utable.css">
+    <link rel="stylesheet" href="../../css/uptable.css">
 </head>
 <body>
 
@@ -90,22 +67,33 @@ while ($product = mysqli_fetch_assoc($products)) {
         </span>
     </h1>
 
-    <table class="masterlist">
-        <tr>
-            <th>Image</th>
-            <th>Product Name</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Description</th>
-            <th>Buy Now</th>
-            <?php if ($_SESSION['user_id'] == 13): ?>
-                <th>Edit</th>
-                <th>Delete</th>
-            <?php endif; ?>
-        </tr>
-
-        <?php echo $user_list; ?>
-    </table>
+    <div class="product-grid">
+        <?php while ($product = mysqli_fetch_assoc($products)): ?>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="../../uploads/<?php echo $product['image']; ?>" alt="Product Image">
+                </div>
+                <div class="product-info">
+                    <h2><?php echo $product['name']; ?></h2>
+                    <p class="product-price">Rs. <?php echo $product['price']; ?></p>
+                    <p class="product-stock">Stock: <?php echo $product['stock']; ?></p>
+                    <p class="product-description"><?php echo $product['description']; ?></p>
+                </div>
+                <div class="product-actions">
+                    <form action="../order/order_now.php" method="get">
+                        <input type="hidden" name="product_id" value="<?php echo $product['p_id']; ?>">
+                        <button type="submit" class="btn buy-btn">Buy Now</button>
+                    </form>
+                    <?php if ($_SESSION['user_id'] == 13): ?>
+                        <a href="editproduct.php?product_id=<?php echo $product['p_id']; ?>" class="btn edit-btn">Edit</a>
+                        <a href="deleteproduct.php?user_id=<?php echo $product['p_id']; ?>" 
+                           class="btn delete-btn"
+                           onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endwhile; ?>
+    </div>
 </main>
 
 </body>
